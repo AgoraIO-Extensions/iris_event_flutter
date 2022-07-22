@@ -35,7 +35,6 @@ class IrisEvent {
     if (_irisEventHandler == null) {
       return;
     }
-    debugPrint('_onEventHandle data: $data');
     final dataList = List.from(data);
     final event = dataList[0];
     final res = dataList[1] as String;

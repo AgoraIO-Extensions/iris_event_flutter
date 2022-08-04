@@ -6,5 +6,6 @@
 
 build/
 .idea/
-third_party/
 iris_event.iml
+macos/iris_event_handler.framework
+iris_event_handler.podspec

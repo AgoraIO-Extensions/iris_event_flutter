@@ -34,8 +34,21 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    sourceSets {
+        if (isDev(project)) {
+           main.jniLibs.srcDirs += 'libs'
+        }
+    }
 }
 
 dependencies {
-    implementation 'io.agora.rtc:iris-event-flutter-beta:1.0.0.1' 
+    if (!isDev(project)) {
+        implementation 'io.agora.rtc:iris-event-flutter-beta:1.0.0.1' 
+    }
+}
+
+static boolean isDev(Project project) {
+  def devFile = project.file('.plugin_dev')
+  return devFile.exists()
 }

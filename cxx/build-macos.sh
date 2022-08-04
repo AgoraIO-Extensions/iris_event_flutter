@@ -5,9 +5,10 @@ set -x
 
 IRIS_EVENT_DIR=$1
 OUT_DIR=$2
+BUILD_TYPE=$3
 
 ARCHS="arm64 x86_64"
-BUILD_TYPE="Release"
+# BUILD_TYPE="Release"
 
 if [ ! -d "$IRIS_EVENT_DIR/build/macos/MAC" ]; then
     mkdir -p $IRIS_EVENT_DIR/build/macos/MAC

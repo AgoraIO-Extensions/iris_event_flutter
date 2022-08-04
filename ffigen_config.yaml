@@ -26,4 +26,4 @@ functions:
   symbol-address:
     include:
       - 'OnEvent' # Match function name.
-      - 'OnEventWithBuffer' 
+      - 'OnEventEx' 

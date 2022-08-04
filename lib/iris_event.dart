@@ -41,7 +41,7 @@ class IrisEvent {
     final buffers = dataList.length == 3
         ? List<Uint8List>.from(dataList[2])
         : <Uint8List>[];
-
+  debugPrint('event: $data');
     _irisEventHandler?.onEvent(event, res, buffers);
   }
 
@@ -76,4 +76,15 @@ class IrisEvent {
               ffi.Pointer<ffi.Uint32>,
               ffi.Uint32)>> get onEventPtr =>
       _nativeIrisEventBinding.addresses.OnEvent;
+
+  ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Pointer<ffi.Void>>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Uint32)>> get onEventExPtr =>
+      _nativeIrisEventBinding.addresses.OnEventEx;
 }

@@ -9,3 +9,4 @@ build/
 iris_event.iml
 macos/iris_event_handler.framework
 iris_event_handler.podspec
+windows/third_party/

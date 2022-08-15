@@ -16,7 +16,8 @@ A new flutter plugin project.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'AgoraIrisEventFlutter_iOS_Beta', '1.0.0'
+  # s.dependency 'AgoraIrisEventFlutter_iOS_Beta', '1.0.0'
+  s.dependency 'iris_event_handler'
   s.platform = :ios, '9.0'
   s.libraries = 'stdc++'
 

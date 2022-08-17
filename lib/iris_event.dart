@@ -41,7 +41,6 @@ class IrisEvent {
     final buffers = dataList.length == 3
         ? List<Uint8List>.from(dataList[2])
         : <Uint8List>[];
-  debugPrint('event: $data');
     _irisEventHandler?.onEvent(event, res, buffers);
   }
 
@@ -61,11 +60,6 @@ class IrisEvent {
     _dartNativeReceivePort = null;
     _dartNativePort = -1;
   }
-
-  // ffi.Pointer<
-  //         ffi.NativeFunction<
-  //             ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>)>>
-  //     get onEventPtr => _nativeIrisEventBinding.addresses.OnEvent;
 
   ffi.Pointer<
       ffi.NativeFunction<

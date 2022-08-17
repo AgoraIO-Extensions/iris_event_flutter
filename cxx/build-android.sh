@@ -7,7 +7,7 @@ IRIS_EVENT_DIR=$1
 OUT_DIR=$2
 
 MY_PATH=$(dirname "$0")
-BUILD_TYPE="Release"
+BUILD_TYPE=$3
 
 # if [[ ! -d $ROOT_PATH/integration_test_app/android/libs ]]; then
 #     mkdir -p $ROOT_PATH/integration_test_app/android/libs

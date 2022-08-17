@@ -28,7 +28,7 @@ class NativeIrisEventBinding {
   }
 
   late final _InitDartApiDLPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      _lookup<ffi.NativeFunction<ffi.IntPtr Function(ffi.Pointer<ffi.Void>)>>(
           'InitDartApiDL');
   late final _InitDartApiDL =
       _InitDartApiDLPtr.asFunction<int Function(ffi.Pointer<ffi.Void>)>();
@@ -42,7 +42,7 @@ class NativeIrisEventBinding {
   }
 
   late final _SetDartSendPortPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
           'SetDartSendPort');
   late final _SetDartSendPort =
       _SetDartSendPortPtr.asFunction<void Function(int)>();

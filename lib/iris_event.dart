@@ -32,12 +32,16 @@ class IrisEvent {
   int _dartNativePort = -1;
 
   static void _onEventHandle(dynamic data) {
+    debugPrint('event: $data');
     if (_irisEventHandler == null) {
       return;
     }
     final dataList = List.from(data);
     final event = dataList[0];
-    final res = dataList[1] as String;
+    String res = dataList[1] as String;
+    if (res.isEmpty) {
+      res = "{}";
+    }
     final buffers = dataList.length == 3
         ? List<Uint8List>.from(dataList[2])
         : <Uint8List>[];

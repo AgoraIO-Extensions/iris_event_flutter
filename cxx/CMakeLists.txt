@@ -20,6 +20,12 @@ file(GLOB SOURCES
      "${CMAKE_CURRENT_SOURCE_DIR}/third_party/dart-sdk/include/dart_api_dl.c"
      )
 
+if (APPLE)
+     list(APPEND SOURCES
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/iris_life_cycle_observer.mm"
+             )
+endif ()
+
 add_library(${LIBRARY_NAME} SHARED
             ${SOURCES}
             )
@@ -37,6 +43,14 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "iOS")
         MACOSX_FRAMEWORK_IDENTIFIER io.agora.iris.event
         CXX_VISIBILITY_PRESET hidden
         )
+    set(FRAMEWORKS
+        "-framework Foundation"
+        "-framework UIKit"
+        )
+    target_link_libraries(${LIBRARY_NAME}
+        PRIVATE
+        "${FRAMEWORKS}"
+        )
 
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(CMAKE_XCODE_ATTRIBUTE_MACOSX_DEPLOYMENT_TARGET "10.11")
@@ -45,6 +59,14 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
         FRAMEWORK_VERSION A
         MACOSX_FRAMEWORK_IDENTIFIER io.agora.iris.event
         CXX_VISIBILITY_PRESET hidden
+        )
+    set(FRAMEWORKS
+        "-framework Foundation"
+        "-framework AppKit"
+        )
+    target_link_libraries(${LIBRARY_NAME}
+        PRIVATE
+        "${FRAMEWORKS}"
         )
 else()
 endif()

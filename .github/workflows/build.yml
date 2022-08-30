@@ -11,13 +11,14 @@ on:
 jobs:
   cmake_build_android:
     name: Build Android
-    runs-on: macos-11
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
           ndk-version: r21e
+      - uses: seanmiddleditch/gha-setup-ninja@master
       - name: Run cmake build android
         env:
           ANDROID_NDK: ${{ steps.setup-ndk.outputs.ndk-path }}

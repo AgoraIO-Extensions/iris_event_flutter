@@ -21,7 +21,7 @@ jobs:
           add-to-path: false
       - name: Run cmake build android
         env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+          ANDROID_NDK: ${{ steps.setup-ndk.outputs.ndk-path }}
         run: |
           bash ci/cmake-build-android.sh
 

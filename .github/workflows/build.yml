@@ -18,11 +18,11 @@ jobs:
         id: setup-ndk
         with:
           ndk-version: r21e
-          add-to-path: false
       - name: Run cmake build android
         env:
           ANDROID_NDK: ${{ steps.setup-ndk.outputs.ndk-path }}
         run: |
+          ls $ANDROID_NDK
           bash ci/cmake-build-android.sh
 
       - name: Get current date

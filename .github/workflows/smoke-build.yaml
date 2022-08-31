@@ -1,4 +1,4 @@
-name: CI
+name: Smoke build
 
 on: push
 

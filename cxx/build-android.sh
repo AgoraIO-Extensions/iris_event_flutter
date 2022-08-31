@@ -46,12 +46,12 @@ do
     cmake --build . --config "$BUILD_TYPE"
     popd
 
-    if [ ! -d "$OUT_DIR/libs/$ABI" ]; then
-       mkdir -p $OUT_DIR/libs/$ABI
+    if [ ! -d "$OUT_DIR/$ABI" ]; then
+       mkdir -p $OUT_DIR/$ABI
     fi
 
 #     rm -rf ${OUT_DIR}/iris_event_handler.framework
-    cp -RP "$IRIS_EVENT_DIR/build/android/$ABI/libiris_event_handler.so" "$OUT_DIR/libs/$ABI/libiris_event_handler.so"
+    cp -RP "$IRIS_EVENT_DIR/build/android/$ABI/libiris_event_handler.so" "$OUT_DIR/$ABI/libiris_event_handler.so"
 done;
 
 # rm -rf iris_android.zip

@@ -20,6 +20,8 @@ extern "C"
     EXPORT intptr_t
     InitDartApiDL(void *data);
 
+    EXPORT void Dispose();
+
     EXPORT void SetDartSendPort(Dart_Port send_port);
 
     EXPORT void OnEvent(const char *event,

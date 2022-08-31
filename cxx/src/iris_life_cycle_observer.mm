@@ -14,17 +14,13 @@
 #import <AppKit/AppKit.h>
 #endif
 
-namespace agora {
-namespace iris {
+namespace irisevent {
 
 ILifeCycleObserver::ILifeCycleObserver(std::function<void()> cb){
   callback_ = cb;
 }
 
 void ILifeCycleObserver::addApplicationObserver() {
-
-
-    NSLog(@"ILifeCycleObserver addApplicationObserver");
   NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 
   applicationWillTerminateObserver = (__bridge_retained void *)
@@ -46,7 +42,5 @@ void ILifeCycleObserver::removeApplicationObserver() {
     [[NSNotificationCenter defaultCenter] removeObserver:observer];
     applicationWillTerminateObserver = nullptr;
   }
-}
-
 }
 }

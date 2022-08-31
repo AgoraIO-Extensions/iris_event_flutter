@@ -14,16 +14,21 @@ project(iris_event_handler)
 
 set(LIBRARY_NAME iris_event_handler)
 
-file(GLOB SOURCES 
-     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
-     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc"
+set(SOURCES 
+     "${CMAKE_CURRENT_SOURCE_DIR}/src/iris_event.h"
+     "${CMAKE_CURRENT_SOURCE_DIR}/src/iris_event.cc"
      "${CMAKE_CURRENT_SOURCE_DIR}/third_party/dart-sdk/include/dart_api_dl.c"
+     "${CMAKE_CURRENT_SOURCE_DIR}/src/iris_life_cycle_observer.h"
      )
 
 if (APPLE)
      list(APPEND SOURCES
         "${CMAKE_CURRENT_SOURCE_DIR}/src/iris_life_cycle_observer.mm"
              )
+else()
+    list(APPEND SOURCES
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/iris_life_cycle_observer.cc"
+        )
 endif ()
 
 add_library(${LIBRARY_NAME} SHARED

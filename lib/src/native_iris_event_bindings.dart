@@ -33,6 +33,14 @@ class NativeIrisEventBinding {
   late final _InitDartApiDL =
       _InitDartApiDLPtr.asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
+  void Dispose() {
+    return _Dispose();
+  }
+
+  late final _DisposePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function()>>('Dispose');
+  late final _Dispose = _DisposePtr.asFunction<void Function()>();
+
   void SetDartSendPort(
     int send_port,
   ) {

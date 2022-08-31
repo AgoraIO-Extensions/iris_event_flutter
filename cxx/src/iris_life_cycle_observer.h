@@ -1,18 +1,18 @@
 #include <functional>
 
-namespace agora {
-namespace iris {
+namespace irisevent
+{
 
-class ILifeCycleObserver {
+  class ILifeCycleObserver
+  {
 
- public:
-  ILifeCycleObserver(std::function<void()> cb);
-  void addApplicationObserver();
-  void removeApplicationObserver();
+  public:
+    ILifeCycleObserver(std::function<void()> cb);
+    void addApplicationObserver();
+    void removeApplicationObserver();
 
- private:
-  void *applicationWillTerminateObserver;
-  std::function<void()> callback_;
-};
-}// namespace iris
-}// namespace agora
+  private:
+    void *applicationWillTerminateObserver;
+    std::function<void()> callback_;
+  };
+} // namespace irisevent

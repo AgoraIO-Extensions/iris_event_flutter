@@ -59,6 +59,7 @@ class IrisEvent {
   }
 
   void resetEventHandler() {
+    _nativeIrisEventBinding.Dispose();
     _irisEventHandler = null;
     _dartNativeReceivePort?.close();
     _dartNativeReceivePort = null;

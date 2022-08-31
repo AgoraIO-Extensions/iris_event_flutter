@@ -9,22 +9,31 @@
 #define EXPORT __attribute__((visibility("default")))
 #endif
 
+#define kBasicResultLength 64 * 1024
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
     // Initialize `dart_api_dl.h`
-EXPORT intptr_t
-InitDartApiDL(void *data);
+    EXPORT intptr_t
+    InitDartApiDL(void *data);
 
-EXPORT void SetDartSendPort(Dart_Port send_port);
+    EXPORT void Dispose();
 
-EXPORT void OnEvent(const char *event,
-                    const char *data,
-                    const void **buffer,
-                    unsigned int *length,
-                    unsigned int buffer_count);
+    EXPORT void SetDartSendPort(Dart_Port send_port);
+
+    EXPORT void OnEvent(const char *event,
+                        const char *data,
+                        const void **buffer,
+                        unsigned int *length,
+                        unsigned int buffer_count);
+
+    EXPORT void OnEventEx(const char *event, const char *data,
+                          char result[kBasicResultLength],
+                          const void **buffer, unsigned int *length,
+                          unsigned int buffer_count);
 
 #ifdef __cplusplus
 }

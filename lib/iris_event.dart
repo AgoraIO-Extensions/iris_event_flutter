@@ -37,11 +37,13 @@ class IrisEvent {
     }
     final dataList = List.from(data);
     final event = dataList[0];
-    final res = dataList[1] as String;
+    String res = dataList[1] as String;
+    if (res.isEmpty) {
+      res = "{}";
+    }
     final buffers = dataList.length == 3
         ? List<Uint8List>.from(dataList[2])
         : <Uint8List>[];
-
     _irisEventHandler?.onEvent(event, res, buffers);
   }
 
@@ -56,16 +58,12 @@ class IrisEvent {
   }
 
   void resetEventHandler() {
+    _nativeIrisEventBinding.Dispose();
     _irisEventHandler = null;
     _dartNativeReceivePort?.close();
     _dartNativeReceivePort = null;
     _dartNativePort = -1;
   }
-
-  // ffi.Pointer<
-  //         ffi.NativeFunction<
-  //             ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>)>>
-  //     get onEventPtr => _nativeIrisEventBinding.addresses.OnEvent;
 
   ffi.Pointer<
       ffi.NativeFunction<
@@ -76,4 +74,15 @@ class IrisEvent {
               ffi.Pointer<ffi.Uint32>,
               ffi.Uint32)>> get onEventPtr =>
       _nativeIrisEventBinding.addresses.OnEvent;
+
+  ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Pointer<ffi.Void>>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Uint32)>> get onEventExPtr =>
+      _nativeIrisEventBinding.addresses.OnEventEx;
 }

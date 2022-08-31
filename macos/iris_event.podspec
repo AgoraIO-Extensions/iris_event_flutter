@@ -16,7 +16,8 @@ A new Flutter plugin project.
   s.source           = { :path => '.' }
   s.source_files     = 'Classes/**/*'
   s.dependency 'FlutterMacOS'
-  s.dependency 'AgoraIrisEventFlutter_macOS_Beta', '1.0.0'
+  s.dependency 'AgoraIrisEventFlutter_macOS', '1.2.0.1'
+  # s.dependency 'iris_event_handler'
 
   s.platform = :osx, '10.11'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }

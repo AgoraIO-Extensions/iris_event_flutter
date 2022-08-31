@@ -32,7 +32,6 @@ class IrisEvent {
   int _dartNativePort = -1;
 
   static void _onEventHandle(dynamic data) {
-    debugPrint('event: $data');
     if (_irisEventHandler == null) {
       return;
     }

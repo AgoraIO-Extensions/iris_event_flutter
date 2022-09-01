@@ -15,7 +15,7 @@ set(PLUGIN_NAME "iris_event_plugin")
 # Add this project's cmake/ directory to the module path.
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-set(IRIS_EVENT_DOWLOAD_URL "https://download.agora.io/sdk/release/Agora_Iris_Event_Flutter_for_Windows_v1_1_0.zip")
+set(IRIS_EVENT_DOWLOAD_URL "https://download.agora.io/sdk/release/Agora_Iris_Event_Flutter_for_Windows_v1_4_0.zip")
 
 include(DownloadSDK)
 DOWNLOAD_SDK_BY_URL("${IRIS_EVENT_DOWLOAD_URL}" "${CMAKE_CURRENT_SOURCE_DIR}/third_party")   
@@ -58,7 +58,7 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
 # This list could contain prebuilt libraries, or libraries created by an
 # external build triggered from this build file.
 set(iris_event_bundled_libraries
-  "${CMAKE_CURRENT_SOURCE_DIR}/third_party/windows/iris_event_handler.dll"
-  "${CMAKE_CURRENT_SOURCE_DIR}/third_party/windows/iris_event_handler.lib"
+  "${CMAKE_CURRENT_SOURCE_DIR}/third_party/Agora_Iris_Event_Flutter_for_Windows/iris_event_handler.dll"
+  # "${CMAKE_CURRENT_SOURCE_DIR}/third_party/Agora_Iris_Event_Flutter_for_Windows/iris_event_handler.lib"
   PARENT_SCOPE
 )

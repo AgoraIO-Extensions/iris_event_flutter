@@ -59,6 +59,6 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE flutter flutter_wrapper_plugin)
 # external build triggered from this build file.
 set(iris_event_bundled_libraries
   "${CMAKE_CURRENT_SOURCE_DIR}/third_party/Agora_Iris_Event_Flutter_for_Windows/iris_event_handler.dll"
-  "${CMAKE_CURRENT_SOURCE_DIR}/third_party/Agora_Iris_Event_Flutter_for_Windows/iris_event_handler.lib"
+  # "${CMAKE_CURRENT_SOURCE_DIR}/third_party/Agora_Iris_Event_Flutter_for_Windows/iris_event_handler.lib"
   PARENT_SCOPE
 )

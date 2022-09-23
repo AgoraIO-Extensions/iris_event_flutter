@@ -48,6 +48,8 @@ class IrisEvent {
   }
 
   void setEventHandler(IrisEventHandler eventHandler) {
+    if (_irisEventHandler != null) return;
+
     _irisEventHandler = eventHandler;
 
     _dartNativeReceivePort = ReceivePort()..listen(_onEventHandle);
@@ -57,7 +59,7 @@ class IrisEvent {
     _nativeIrisEventBinding.SetDartSendPort(_dartNativePort);
   }
 
-  void resetEventHandler() {
+  void dispose() {
     _nativeIrisEventBinding.Dispose();
     _irisEventHandler = null;
     _dartNativeReceivePort?.close();
@@ -65,24 +67,6 @@ class IrisEvent {
     _dartNativePort = -1;
   }
 
-  ffi.Pointer<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Void>>,
-              ffi.Pointer<ffi.Uint32>,
-              ffi.Uint32)>> get onEventPtr =>
-      _nativeIrisEventBinding.addresses.OnEvent;
-
-  ffi.Pointer<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Void>>,
-              ffi.Pointer<ffi.Uint32>,
-              ffi.Uint32)>> get onEventExPtr =>
-      _nativeIrisEventBinding.addresses.OnEventEx;
+  ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<EventParam>)>>
+      get onEventPtr => _nativeIrisEventBinding.addresses.OnEvent;
 }

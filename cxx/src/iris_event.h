@@ -15,6 +15,16 @@
 extern "C"
 {
 #endif
+    typedef struct EventParam
+    {
+        const char *event;
+        const char *data;
+        unsigned int data_size;
+        char *result;
+        void **buffer;
+        unsigned int *length;
+        unsigned int buffer_count;
+    } EventParam;
 
     // Initialize `dart_api_dl.h`
     EXPORT intptr_t
@@ -24,16 +34,7 @@ extern "C"
 
     EXPORT void SetDartSendPort(Dart_Port send_port);
 
-    EXPORT void OnEvent(const char *event,
-                        const char *data,
-                        const void **buffer,
-                        unsigned int *length,
-                        unsigned int buffer_count);
-
-    EXPORT void OnEventEx(const char *event, const char *data,
-                          char result[kBasicResultLength],
-                          const void **buffer, unsigned int *length,
-                          unsigned int buffer_count);
+    EXPORT void OnEvent(EventParam *param);
 
 #ifdef __cplusplus
 }

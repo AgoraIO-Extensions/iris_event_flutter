@@ -15,7 +15,7 @@ set(PLUGIN_NAME "iris_event_plugin")
 # Add this project's cmake/ directory to the module path.
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-set(IRIS_EVENT_DOWLOAD_URL "https://download.agora.io/sdk/release/Agora_Iris_Event_Flutter_for_Windows_v1_4_0.zip")
+set(IRIS_EVENT_DOWLOAD_URL "https://download.agora.io/sdk/release/Agora_Iris_Event_Flutter_for_Windows_v1_5_0-dev_1.zip")
 
 include(DownloadSDK)
 DOWNLOAD_SDK_BY_URL("${IRIS_EVENT_DOWLOAD_URL}" "${CMAKE_CURRENT_SOURCE_DIR}/third_party")   

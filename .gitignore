@@ -11,3 +11,5 @@ macos/iris_event_handler.framework
 iris_event_handler.podspec
 windows/third_party/
 .vscode/
+
+**/pubspec.lock

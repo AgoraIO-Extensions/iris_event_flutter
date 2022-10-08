@@ -4,9 +4,9 @@ on:
   push:
     branches: 
       - release/**
-  # pull_request:
-  #   branches: 
-  #     - main
+  pull_request:
+    branches: 
+      - main
 
 jobs:
   cmake_build_android:
@@ -28,7 +28,9 @@ jobs:
 
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+        run: |
+          VERSION=$(bash ci/grep_version.sh)
+          echo "::set-output name=date::$(date + '${VERSION}' + '_' +'%Y%m%d')"
       - name: Test with environment variables
         run: echo $BUILD_NAME
         env:
@@ -51,7 +53,9 @@ jobs:
           bash ci/cmake-build-ios.sh
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+        run: |
+          VERSION=$(bash ci/grep_version.sh)
+          echo "::set-output name=date::$(date + '${VERSION}' + '_' +'%Y%m%d')"
       - name: Test with environment variables
         run: echo $BUILD_NAME
         env:
@@ -74,7 +78,9 @@ jobs:
           bash ci/cmake-build-macos.sh
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+        run: |
+          VERSION=$(bash ci/grep_version.sh)
+          echo "::set-output name=date::$(date + '${VERSION}' + '_' +'%Y%m%d')"
       - name: Test with environment variables
         run: echo $BUILD_NAME
         env:
@@ -98,7 +104,9 @@ jobs:
           bash ci/cmake-build-windows.sh
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+        run: |
+          VERSION=$(bash ci/grep_version.sh)
+          echo "::set-output name=date::$(date + '${VERSION}' + '_' +'%Y%m%d')"
       - name: Test with environment variables
         run: echo $BUILD_NAME
         env:

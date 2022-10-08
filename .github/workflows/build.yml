@@ -31,7 +31,8 @@ jobs:
         run: |
           VERSION=$(bash ci/grep_version.sh)
           DATE=$(date '+%Y%m%d')
-          echo "::set-output name=date::$(echo '${VERSION}_${DATE}')"
+          BUILD_NAME="${VERSION}_${DATE}"
+          echo "::set-output name=date::${BUILD_NAME}"
       - name: Test with environment variables
         run: echo $BUILD_NAME
         env:
@@ -57,7 +58,8 @@ jobs:
         run: |
           VERSION=$(bash ci/grep_version.sh)
           DATE=$(date '+%Y%m%d')
-          echo "::set-output name=date::$(echo '${VERSION}_${DATE}')"
+          BUILD_NAME="${VERSION}_${DATE}"
+          echo "::set-output name=date::${BUILD_NAME}"
       - name: Test with environment variables
         run: echo $BUILD_NAME
         env:
@@ -83,7 +85,8 @@ jobs:
         run: |
           VERSION=$(bash ci/grep_version.sh)
           DATE=$(date '+%Y%m%d')
-          echo "::set-output name=date::$(echo '${VERSION}_${DATE}')"
+          BUILD_NAME="${VERSION}_${DATE}"
+          echo "::set-output name=date::${BUILD_NAME}"
       - name: Test with environment variables
         run: echo $BUILD_NAME
         env:
@@ -107,10 +110,12 @@ jobs:
           bash ci/cmake-build-windows.sh
       - name: Get current date
         id: date
+        shell: bash
         run: |
           VERSION=$(bash ci/grep_version.sh)
           DATE=$(date '+%Y%m%d')
-          echo "::set-output name=date::$(echo '${VERSION}_${DATE}')"
+          BUILD_NAME="${VERSION}_${DATE}"
+          echo "::set-output name=date::${BUILD_NAME}"
       - name: Test with environment variables
         run: echo $BUILD_NAME
         env:

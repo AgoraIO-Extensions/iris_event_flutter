@@ -14,7 +14,7 @@ project(iris_event_handler)
 
 set(LIBRARY_NAME iris_event_handler)
 
-set(IRIS_EVENT_VERSION "1.5.0")
+set(IRIS_EVENT_VERSION "1.4.2")
 
 set(SOURCES 
      "${CMAKE_CURRENT_SOURCE_DIR}/src/iris_event.h"

@@ -30,7 +30,7 @@ jobs:
         id: date
         run: |
           VERSION=$(bash ci/grep_version.sh)
-          DATE=$(date + '%Y%m%d')
+          DATE=$(date '+%Y%m%d')
           echo "::set-output name=date::$(echo '${VERSION}_${DATE}')"
       - name: Test with environment variables
         run: echo $BUILD_NAME
@@ -56,7 +56,7 @@ jobs:
         id: date
         run: |
           VERSION=$(bash ci/grep_version.sh)
-          DATE=$(date + '%Y%m%d')
+          DATE=$(date '+%Y%m%d')
           echo "::set-output name=date::$(echo '${VERSION}_${DATE}')"
       - name: Test with environment variables
         run: echo $BUILD_NAME
@@ -82,7 +82,7 @@ jobs:
         id: date
         run: |
           VERSION=$(bash ci/grep_version.sh)
-          DATE=$(date + '%Y%m%d')
+          DATE=$(date '+%Y%m%d')
           echo "::set-output name=date::$(echo '${VERSION}_${DATE}')"
       - name: Test with environment variables
         run: echo $BUILD_NAME
@@ -109,7 +109,7 @@ jobs:
         id: date
         run: |
           VERSION=$(bash ci/grep_version.sh)
-          DATE=$(date + '%Y%m%d')
+          DATE=$(date '+%Y%m%d')
           echo "::set-output name=date::$(echo '${VERSION}_${DATE}')"
       - name: Test with environment variables
         run: echo $BUILD_NAME

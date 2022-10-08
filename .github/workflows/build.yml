@@ -41,7 +41,7 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ github.event_name == "push" }}
+        if: ${{ github.event_name == 'push' }}
         with:
           tag_name: iris_event_${{ steps.date.outputs.date }}
           files: "build/*.zip"
@@ -69,7 +69,7 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ github.event_name == "push" }}
+        if: ${{ github.event_name == 'push' }}
         with:
           tag_name: iris_event_${{ steps.date.outputs.date }}
           files: "build/*.zip"
@@ -97,7 +97,7 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ github.event_name == "push" }}
+        if: ${{ github.event_name == 'push' }}
         with:
           tag_name: iris_event_${{ steps.date.outputs.date }}
           files: "build/*.zip"
@@ -127,7 +127,7 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ github.event_name == "push" }}
+        if: ${{ github.event_name == 'push' }}
         with:
           tag_name: iris_event_${{ steps.date.outputs.date }}
           files: "build/*.zip"

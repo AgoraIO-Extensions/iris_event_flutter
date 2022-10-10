@@ -52,6 +52,9 @@ do
 
 #     rm -rf ${OUT_DIR}/iris_event_handler.framework
     cp -RP "$IRIS_EVENT_DIR/build/android/$ABI/libiris_event_handler.so" "$OUT_DIR/$ABI/libiris_event_handler.so"
+    if [[ -f "$IRIS_EVENT_DIR/build/android/$ABI/libiris_event_handlerSymbol.so" ]]; then
+        cp -RP "$IRIS_EVENT_DIR/build/android/$ABI/libiris_event_handlerSymbol.so" "$OUT_DIR/$ABI/libiris_event_handlerSymbol.so"
+    fi
 done;
 
 # rm -rf iris_android.zip

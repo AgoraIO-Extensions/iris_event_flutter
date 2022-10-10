@@ -22,7 +22,12 @@ cmake \
 cmake --build . --config "$BUILD_TYPE"
 popd
 
+ls ${IRIS_EVENT_DIR}/build/windows/x64/$BUILD_TYPE
 cp -RP "${IRIS_EVENT_DIR}/build/windows/x64/$BUILD_TYPE/iris_event_handler.dll" "${OUT_DIR}/iris_event_handler.dll"
+cp -RP "${IRIS_EVENT_DIR}/build/windows/x64/$BUILD_TYPE/iris_event_handler.lib" "${OUT_DIR}/iris_event_handler.lib"
+if [[ -f "${IRIS_EVENT_DIR}/build/windows/x64/$BUILD_TYPE/iris_event_handler.pdb" ]]; then
+    cp -RP "${IRIS_EVENT_DIR}/build/windows/x64/$BUILD_TYPE/iris_event_handler.pdb" "${OUT_DIR}/iris_event_handler.pdb"
+fi
 
 # echo "Generating framework"
 # lipo -create "$IRIS_EVENT_DIR/build/ios/OS64COMBINED/Debug-iphoneos/iris_event_handler.framework/iris_event_handler" "$IRIS_EVENT_DIR/build/ios/SIMULATOR64/Debug-iphonesimulator/iris_event_handler.framework/iris_event_handler" -output "$OUT_DIR/ios/iris_event_handler.framework/iris_event_handler"

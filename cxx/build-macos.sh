@@ -26,7 +26,11 @@ cmake --build . --config "$BUILD_TYPE"
 popd
 
 rm -rf ${OUT_DIR}/iris_event_handler.framework
+rm -rf ${OUT_DIR}/iris_event_handler.framework.dSYM
 cp -RP "${IRIS_EVENT_DIR}/build/macos/MAC/$BUILD_TYPE/iris_event_handler.framework" "${OUT_DIR}/iris_event_handler.framework"
+if [[ -d "${IRIS_EVENT_DIR}/build/macos/MAC/$BUILD_TYPE/iris_event_handler.framework.dSYM" ]]; then
+    cp -RP "${IRIS_EVENT_DIR}/build/macos/MAC/$BUILD_TYPE/iris_event_handler.framework.dSYM" "${OUT_DIR}/iris_event_handler.framework.dSYM"
+fi
 
 # echo "Generating framework"
 # lipo -create "$IRIS_EVENT_DIR/build/ios/OS64COMBINED/Debug-iphoneos/iris_event_handler.framework/iris_event_handler" "$IRIS_EVENT_DIR/build/ios/SIMULATOR64/Debug-iphonesimulator/iris_event_handler.framework/iris_event_handler" -output "$OUT_DIR/ios/iris_event_handler.framework/iris_event_handler"

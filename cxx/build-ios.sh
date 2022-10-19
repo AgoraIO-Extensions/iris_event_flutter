@@ -12,7 +12,7 @@ BUILD_TYPE="Release"
 # ROOT_PATH=$(pwd)
 # IRIS_INTEGRATION_TEST_PATH=$ROOT_PATH/integration_test_app/iris_integration_test
 
-archs="armv7 arm64"
+archs="arm64"
 
 for ARCH in ${ARCHS};
 do
@@ -21,7 +21,7 @@ do
     fi
 
     if [ "$ARCH" = "OS64COMBINED" ]; then
-      archs="armv7 arm64"
+      archs="arm64"
     elif [ "$ARCH" = "SIMULATOR64" ]; then
       archs="arm64 x86_64"
     fi
@@ -61,6 +61,7 @@ mkdir -p "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE"
     -output "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework"
 
   echo "start create .framework ----------"
+  ls ${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE
   cp -RP "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework" "${OUT_DIR}"
   # #  lipo -remove arm64 \
   # #    "${IRIS_EVENT_DIR}/build/ios/SIMULATOR64/output/dcg/$buildType/AgoraRtcWrapper.framework/AgoraRtcWrapper" \

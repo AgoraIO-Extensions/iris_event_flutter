@@ -22,6 +22,7 @@ cmake \
 cmake --build . --config "$BUILD_TYPE"
 popd
 
+ls ${IRIS_EVENT_DIR}/build/windows/x64/$BUILD_TYPE
 cp -RP "${IRIS_EVENT_DIR}/build/windows/x64/$BUILD_TYPE/iris_event_handler.dll" "${OUT_DIR}/iris_event_handler.dll"
 
 # echo "Generating framework"

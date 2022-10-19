@@ -52,6 +52,7 @@ rm -rf "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE"
 mkdir -p "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE"
 
 ls ${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/$BUILD_TYPE-iphoneos
+ls ${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/$BUILD_TYPE
 ls ${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/
 
 # /Users/fenglang/codes/aw/ng/agora_rtc_ng/iris_event/cxx/build/ios/SIMULATOR64/Debug-iphonesimulator/iris_event_handler.framework

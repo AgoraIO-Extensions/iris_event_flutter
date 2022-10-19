@@ -61,12 +61,18 @@ ls ${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/
 
   xcodebuild -create-xcframework \
     -framework "${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/$BUILD_TYPE/iris_event_handler.framework" \
+    -debug-symbols "${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/$BUILD_TYPE/iris_event_handler.framework.dSYM" \
     -framework "${IRIS_EVENT_DIR}/build/ios/SIMULATOR64/$BUILD_TYPE/iris_event_handler.framework" \
+    -debug-symbols "${IRIS_EVENT_DIR}/build/ios/SIMULATOR64/$BUILD_TYPE/iris_event_handler.framework.dSYM" \
     -output "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework"
 
   echo "start create .framework ----------"
   ls ${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE
+  ls ${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework
   cp -RP "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework" "${OUT_DIR}"
+  if [[ -d "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework.dSYM" ]]; then
+    cp -RP "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework.dSYM" "${OUT_DIR}/iris_event_handler.framework.dSYM"
+fi
   # #  lipo -remove arm64 \
   # #    "${IRIS_EVENT_DIR}/build/ios/SIMULATOR64/output/dcg/$buildType/AgoraRtcWrapper.framework/AgoraRtcWrapper" \
   # #    -output "${IRIS_EVENT_DIR}/build/ios/SIMULATOR64/output/dcg/$buildType/AgoraRtcWrapper.framework/AgoraRtcWrapper"

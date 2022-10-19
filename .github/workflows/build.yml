@@ -5,6 +5,7 @@ on:
     branches: 
       - main
       - release/**
+      - littlegnal/export-symbol
   pull_request:
     branches: 
       - main

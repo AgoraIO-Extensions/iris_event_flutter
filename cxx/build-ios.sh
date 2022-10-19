@@ -51,10 +51,6 @@ done;
 rm -rf "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE"
 mkdir -p "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE"
 
-ls ${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/$BUILD_TYPE-iphoneos
-ls ${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/$BUILD_TYPE
-ls ${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/
-
 # /Users/fenglang/codes/aw/ng/agora_rtc_ng/iris_event/cxx/build/ios/SIMULATOR64/Debug-iphonesimulator/iris_event_handler.framework
 
 # /Users/fenglang/codes/aw/ng/agora_rtc_ng/iris_event/cxx/build/ios/OS64COMBINED/Debug-iphoneos/iris_event_handler.framework
@@ -67,12 +63,8 @@ ls ${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/
     -output "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework"
 
   echo "start create .framework ----------"
-  ls ${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE
-  ls ${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework
   cp -RP "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework" "${OUT_DIR}"
-  if [[ -d "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework.dSYM" ]]; then
-    cp -RP "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework.dSYM" "${OUT_DIR}/iris_event_handler.framework.dSYM"
-fi
+
   # #  lipo -remove arm64 \
   # #    "${IRIS_EVENT_DIR}/build/ios/SIMULATOR64/output/dcg/$buildType/AgoraRtcWrapper.framework/AgoraRtcWrapper" \
   # #    -output "${IRIS_EVENT_DIR}/build/ios/SIMULATOR64/output/dcg/$buildType/AgoraRtcWrapper.framework/AgoraRtcWrapper"

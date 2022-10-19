@@ -12,7 +12,7 @@ BUILD_TYPE="Release"
 # ROOT_PATH=$(pwd)
 # IRIS_INTEGRATION_TEST_PATH=$ROOT_PATH/integration_test_app/iris_integration_test
 
-archs="arm64"
+archs="armv7 arm64"
 
 for ARCH in ${ARCHS};
 do
@@ -21,7 +21,7 @@ do
     fi
 
     if [ "$ARCH" = "OS64COMBINED" ]; then
-      archs="arm64"
+      archs="armv7 arm64"
     elif [ "$ARCH" = "SIMULATOR64" ]; then
       archs="arm64 x86_64"
     fi
@@ -50,6 +50,8 @@ done;
 
 rm -rf "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE"
 mkdir -p "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE"
+
+ls ${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE
 
 # /Users/fenglang/codes/aw/ng/agora_rtc_ng/iris_event/cxx/build/ios/SIMULATOR64/Debug-iphonesimulator/iris_event_handler.framework
 

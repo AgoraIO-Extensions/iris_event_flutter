@@ -60,8 +60,8 @@ ls ${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/
 # /Users/fenglang/codes/aw/ng/agora_rtc_ng/iris_event/cxx/build/ios/OS64COMBINED/Debug-iphoneos/iris_event_handler.framework
 
   xcodebuild -create-xcframework \
-    -framework "${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/$BUILD_TYPE-iphoneos/iris_event_handler.framework" \
-    -framework "${IRIS_EVENT_DIR}/build/ios/SIMULATOR64/$BUILD_TYPE-iphonesimulator/iris_event_handler.framework" \
+    -framework "${IRIS_EVENT_DIR}/build/ios/OS64COMBINED/$BUILD_TYPE/iris_event_handler.framework" \
+    -framework "${IRIS_EVENT_DIR}/build/ios/SIMULATOR64/$BUILD_TYPE/iris_event_handler.framework" \
     -output "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework"
 
   echo "start create .framework ----------"

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
 import 'package:iris_event/src/native_iris_event_bindings.dart';
 
 abstract class IrisEventHandler {

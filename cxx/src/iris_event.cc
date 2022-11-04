@@ -38,11 +38,13 @@ public:
         exit_flag_ = 1;
     }
 
-    void Post(const char *event, const char *data,
-              char result[kBasicResultLength],
-              const void **buffer, unsigned int *length,
-              unsigned int buffer_count)
+    void Post(const EventParam *param)
     {
+        if (!param)
+        {
+            return;
+        }
+
         if (dart_send_port_ == -1)
         {
             return;
@@ -50,37 +52,37 @@ public:
 
         Dart_CObject c_event;
         c_event.type = Dart_CObject_kString;
-        if (event == nullptr)
+        if (param->event == nullptr)
         {
             c_event.value.as_string = (char *)"";
         }
         else
         {
-            c_event.value.as_string = const_cast<char *>(event);
+            c_event.value.as_string = const_cast<char *>(param->event);
         }
 
         Dart_CObject c_data;
         c_data.type = Dart_CObject_kString;
-        if (data == nullptr)
+        if (param->data == nullptr)
         {
             c_data.value.as_string = (char *)"";
         }
         else
         {
-            c_data.value.as_string = const_cast<char *>(data);
+            c_data.value.as_string = const_cast<char *>(param->data);
         }
 
-        if (buffer_count != 0)
+        if (param->buffer_count != 0)
         {
             Dart_CObject dbuffer;
             dbuffer.type = Dart_CObject_kArray;
-            dbuffer.value.as_array.length = buffer_count;
+            dbuffer.value.as_array.length = param->buffer_count;
             Dart_CObject **type_data_array =
-                new Dart_CObject *[buffer_count];
-            for (int i = 0; i < buffer_count; i++)
+                new Dart_CObject *[param->buffer_count];
+            for (int i = 0; i < param->buffer_count; i++)
             {
-                const void *obuffer = buffer[i];
-                unsigned int abufferLength = length[i];
+                const void *obuffer = param->buffer[i];
+                unsigned int abufferLength = param->length[i];
                 uint8_t *abuffer = reinterpret_cast<uint8_t *>(malloc(abufferLength));
                 memcpy(abuffer, obuffer, abufferLength);
 
@@ -106,9 +108,9 @@ public:
             if (exit_flag_ == 0)
                 Dart_PostCObject_DL(dart_send_port_, &c_on_event_data);
 
-            if (buffer_count != 0)
+            if (param->buffer_count != 0)
             {
-                for (intptr_t i = 0; i < buffer_count; ++i)
+                for (intptr_t i = 0; i < param->buffer_count; ++i)
                 {
                     delete type_data_array[i];
                 }
@@ -167,23 +169,10 @@ EXPORT void SetDartSendPort(Dart_Port send_port)
     }
 }
 
-EXPORT void OnEvent(const char *event,
-                    const char *data,
-                    const void **buffer,
-                    unsigned int *length,
-                    unsigned int buffer_count)
-{
-
-    OnEventEx(event, data, nullptr, buffer, length, buffer_count);
-}
-
-EXPORT void OnEventEx(const char *event, const char *data,
-                      char result[kBasicResultLength],
-                      const void **buffer, unsigned int *length,
-                      unsigned int buffer_count)
+EXPORT void OnEvent(EventParam *param)
 {
     if (dartMessageHandler_)
     {
-        dartMessageHandler_->Post(event, data, result, buffer, length, buffer_count);
+        dartMessageHandler_->Post(param);
     }
 }

@@ -44,7 +44,7 @@ android {
 
 dependencies {
     if (!isDev(project)) {
-        implementation 'io.agora.rtc:iris-event-flutter:1.5.0-dev.1' 
+        implementation 'io.agora.rtc:iris-event-flutter:2.0.0' 
     }
 }
 

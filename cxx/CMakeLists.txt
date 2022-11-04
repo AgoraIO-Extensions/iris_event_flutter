@@ -14,7 +14,7 @@ project(iris_event_handler)
 
 set(LIBRARY_NAME iris_event_handler)
 
-set(IRIS_EVENT_VERSION "1.4.2")
+set(IRIS_EVENT_VERSION "2.0.0")
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(IRIS_EVENT_DEBUG 1)

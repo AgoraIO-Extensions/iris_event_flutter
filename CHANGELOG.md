@@ -1,3 +1,8 @@
+# Change log
+
+## 2.0.0
+* Refactor c++ onEvent
+
 ## 1.2.0
 * Implement iris event handler OnEventEx
 

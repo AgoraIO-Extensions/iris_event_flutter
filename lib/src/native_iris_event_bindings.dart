@@ -56,68 +56,18 @@ class NativeIrisEventBinding {
       _SetDartSendPortPtr.asFunction<void Function(int)>();
 
   void OnEvent(
-    ffi.Pointer<ffi.Int8> event,
-    ffi.Pointer<ffi.Int8> data,
-    ffi.Pointer<ffi.Pointer<ffi.Void>> buffer,
-    ffi.Pointer<ffi.Uint32> length,
-    int buffer_count,
+    ffi.Pointer<EventParam> param,
   ) {
     return _OnEvent(
-      event,
-      data,
-      buffer,
-      length,
-      buffer_count,
+      param,
     );
   }
 
-  late final _OnEventPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Void>>,
-              ffi.Pointer<ffi.Uint32>,
-              ffi.Uint32)>>('OnEvent');
-  late final _OnEvent = _OnEventPtr.asFunction<
-      void Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Pointer<ffi.Void>>, ffi.Pointer<ffi.Uint32>, int)>();
-
-  void OnEventEx(
-    ffi.Pointer<ffi.Int8> event,
-    ffi.Pointer<ffi.Int8> data,
-    ffi.Pointer<ffi.Int8> result,
-    ffi.Pointer<ffi.Pointer<ffi.Void>> buffer,
-    ffi.Pointer<ffi.Uint32> length,
-    int buffer_count,
-  ) {
-    return _OnEventEx(
-      event,
-      data,
-      result,
-      buffer,
-      length,
-      buffer_count,
-    );
-  }
-
-  late final _OnEventExPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Void>>,
-              ffi.Pointer<ffi.Uint32>,
-              ffi.Uint32)>>('OnEventEx');
-  late final _OnEventEx = _OnEventExPtr.asFunction<
-      void Function(
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Pointer<ffi.Void>>,
-          ffi.Pointer<ffi.Uint32>,
-          int)>();
+  late final _OnEventPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<EventParam>)>>(
+          'OnEvent');
+  late final _OnEvent =
+      _OnEventPtr.asFunction<void Function(ffi.Pointer<EventParam>)>();
 
   late final addresses = _SymbolAddresses(this);
 }
@@ -125,23 +75,26 @@ class NativeIrisEventBinding {
 class _SymbolAddresses {
   final NativeIrisEventBinding _library;
   _SymbolAddresses(this._library);
-  ffi.Pointer<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Void>>,
-              ffi.Pointer<ffi.Uint32>,
-              ffi.Uint32)>> get OnEvent => _library._OnEventPtr;
-  ffi.Pointer<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Void>>,
-              ffi.Pointer<ffi.Uint32>,
-              ffi.Uint32)>> get OnEventEx => _library._OnEventExPtr;
+  ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<EventParam>)>>
+      get OnEvent => _library._OnEventPtr;
+}
+
+class EventParam extends ffi.Struct {
+  external ffi.Pointer<ffi.Int8> event;
+
+  external ffi.Pointer<ffi.Int8> data;
+
+  @ffi.Uint32()
+  external int data_size;
+
+  external ffi.Pointer<ffi.Int8> result;
+
+  external ffi.Pointer<ffi.Pointer<ffi.Void>> buffer;
+
+  external ffi.Pointer<ffi.Uint32> length;
+
+  @ffi.Uint32()
+  external int buffer_count;
 }
 
 const int kBasicResultLength = 65536;

@@ -12,7 +12,7 @@ BUILD_TYPE="Release"
 # ROOT_PATH=$(pwd)
 # IRIS_INTEGRATION_TEST_PATH=$ROOT_PATH/integration_test_app/iris_integration_test
 
-archs="armv7 arm64"
+archs="arm64"
 
 for ARCH in ${ARCHS};
 do
@@ -21,7 +21,7 @@ do
     fi
 
     if [ "$ARCH" = "OS64COMBINED" ]; then
-      archs="armv7 arm64"
+      archs="arm64"
     elif [ "$ARCH" = "SIMULATOR64" ]; then
       archs="arm64 x86_64"
     fi
@@ -60,11 +60,11 @@ xcodebuild -create-xcframework \
   -output "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework"
 
 mkdir -p ${OUT_DIR}/dSYMs
-mkdir -p ${OUT_DIR}/dSYMs/ios-arm64_armv7
+mkdir -p ${OUT_DIR}/dSYMs/ios-arm64
 mkdir -p ${OUT_DIR}/dSYMs/ios-arm64_x86_64-simulator
 
-cp -RP "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework/ios-arm64_armv7/dSYMs" "${OUT_DIR}/dSYMs/ios-arm64_armv7"
-rm -rf "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework/ios-arm64_armv7/dSYMs"
+cp -RP "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework/ios-arm64/dSYMs" "${OUT_DIR}/dSYMs/ios-arm64"
+rm -rf "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework/ios-arm64/dSYMs"
 cp -RP "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework/ios-arm64_x86_64-simulator/dSYMs" "${OUT_DIR}/dSYMs/ios-arm64_x86_64-simulator"
 rm -rf "${IRIS_EVENT_DIR}/build/ios/ALL_ARCHITECTURE/$BUILD_TYPE/iris_event_handler.xcframework/ios-arm64_x86_64-simulator/dSYMs"
 

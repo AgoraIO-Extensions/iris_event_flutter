@@ -7,6 +7,7 @@
 #include "iris_event.h"
 
 #include <memory>
+#include <map>
 
 #include "iris_life_cycle_observer.h"
 
@@ -17,10 +18,15 @@ static void Finalizer(void *isolate_callback_data, void *buffer)
     free(buffer);
 }
 
-class DartMessageHandler
+class DartMessageHandlerBase
+{
+    virtual void Post(EventParam *param) = 0;
+};
+
+class DartMessageHandler : public DartMessageHandlerBase
 {
 public:
-    DartMessageHandler() : exit_flag_(0)
+    DartMessageHandler(Dart_Port send_port) : dart_send_port_(send_port), exit_flag_(0)
     {
         life_observer_ = new ILifeCycleObserver(
             std::bind(&DartMessageHandler::AppExitHandle, this));
@@ -29,16 +35,15 @@ public:
 
     ~DartMessageHandler()
     {
-        delete life_observer_;
-        life_observer_ = nullptr;
+        if (life_observer_)
+        {
+            life_observer_->removeApplicationObserver();
+            delete life_observer_;
+            life_observer_ = nullptr;
+        }
     }
 
-    void AppExitHandle()
-    {
-        exit_flag_ = 1;
-    }
-
-    void Post(const EventParam *param)
+    void Post(EventParam *param) override
     {
         if (!param)
         {
@@ -132,9 +137,10 @@ public:
         }
     }
 
-    void SetDartSendPort(Dart_Port send_port)
+private:
+    void AppExitHandle()
     {
-        dart_send_port_ = send_port;
+        exit_flag_ = 1;
     }
 
 private:
@@ -143,36 +149,139 @@ private:
     Dart_Port dart_send_port_;
 };
 
-DartMessageHandler *dartMessageHandler_ = nullptr;
+class DartMessageHandlerManager : public DartMessageHandlerBase
+{
+public:
+    ~DartMessageHandlerManager()
+    {
+        dartMessageHandlerMap_.clear();
+    }
+
+    intptr_t InitDartApiDL(void *data)
+    {
+        return Dart_InitializeApiDL(data);
+    }
+
+    void Post(EventParam *param) override
+    {
+        for (auto const &it : dartMessageHandlerMap_)
+        {
+            it.second->Post(param);
+        }
+    }
+
+    void RegisterDartPort(Dart_Port send_port)
+    {
+        std::unique_ptr<DartMessageHandler> dartMessageHandler = std::make_unique<DartMessageHandler>(send_port);
+        dartMessageHandlerMap_.emplace(send_port, std::move(dartMessageHandler));
+    }
+
+    void UnregisterDartPort(Dart_Port send_port)
+    {
+        dartMessageHandlerMap_.erase(send_port);
+    }
+
+private:
+    std::map<Dart_Port, std::unique_ptr<DartMessageHandler>> dartMessageHandlerMap_;
+};
+
+// DartMessageHandler *dartMessageHandler_ = nullptr;
+DartMessageHandlerManager *dartMessageHandlerManager_ = nullptr;
 
 // Initialize `dart_api_dl.h`
 EXPORT intptr_t InitDartApiDL(void *data)
 {
-    dartMessageHandler_ = new DartMessageHandler();
-    return Dart_InitializeApiDL(data);
+    if (!dartMessageHandlerManager_)
+    {
+        dartMessageHandlerManager_ = new DartMessageHandlerManager();
+    }
+
+    // dartMessageHandler_ = new DartMessageHandler();
+    return dartMessageHandlerManager_->InitDartApiDL(data);
 }
 
 EXPORT void Dispose()
 {
-    if (dartMessageHandler_)
+    if (dartMessageHandlerManager_)
     {
-        delete dartMessageHandler_;
-        dartMessageHandler_ = nullptr;
+        delete dartMessageHandlerManager_;
+        dartMessageHandlerManager_ = nullptr;
     }
 }
 
-EXPORT void SetDartSendPort(Dart_Port send_port)
+// EXPORT void SetDartSendPort(Dart_Port send_port)
+// {
+//     if (dartMessageHandler_)
+//     {
+//         dartMessageHandler_->SetDartSendPort(send_port);
+//     }
+// }
+
+EXPORT void OnEventLegacy(const char *event, const char *data,
+                          const void **buffer, unsigned int *length,
+                          unsigned int buffer_count)
 {
-    if (dartMessageHandler_)
-    {
-        dartMessageHandler_->SetDartSendPort(send_port);
-    }
+    EventParam param{
+        .event = event,
+        .data = data,
+        .data_size = 0,
+        .result = nullptr,
+        .buffer = buffer,
+        .length = length,
+        .buffer_count = buffer_count};
+
+    OnEvent(&param);
+}
+
+EXPORT void OnEventExLegacy(const char *event, const char *data,
+                            char result[kBasicResultLength],
+                            const void **buffer, unsigned int *length,
+                            unsigned int buffer_count)
+{
+    EventParam param{
+        .event = event,
+        .data = data,
+        .data_size = 0,
+        .result = result,
+        .buffer = buffer,
+        .length = length,
+        .buffer_count = buffer_count};
+
+    OnEvent(&param);
 }
 
 EXPORT void OnEvent(EventParam *param)
 {
-    if (dartMessageHandler_)
+    if (dartMessageHandlerManager_)
     {
-        dartMessageHandler_->Post(param);
+        dartMessageHandlerManager_->Post(param);
+    }
+}
+
+// EXPORT DartMessageHandle CreateDartMessageHandler(Dart_Port send_port);
+// {
+//     DartMessageHandler *dartMessageHandler = new DartMessageHandler(send_port);
+//     return dartMessageHandler;
+// }
+
+// EXPORT void DestroyDartMessageHandler(DartMessageHandle dartMessageHandle);
+// {
+//     DartMessageHandler *dartMessageHandler = reinterpret_cast<DartMessageHandler *>(dartMessageHandle);
+//     delete dartMessageHandler;
+// }
+
+EXPORT void RegisterDartPort(Dart_Port send_port)
+{
+    if (dartMessageHandlerManager_)
+    {
+        dartMessageHandlerManager_->RegisterDartPort(send_port);
+    }
+}
+
+EXPORT void UnregisterDartPort(Dart_Port send_port)
+{
+    if (dartMessageHandlerManager_)
+    {
+        dartMessageHandlerManager_->UnregisterDartPort(send_port);
     }
 }

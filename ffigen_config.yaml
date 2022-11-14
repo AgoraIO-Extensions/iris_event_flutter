@@ -24,3 +24,5 @@ functions:
     include:
       - 'OnEvent' # Match function name.
       - 'OnEventEx' 
+      - 'OnEventLegacy'
+      - 'OnEventExLegacy'

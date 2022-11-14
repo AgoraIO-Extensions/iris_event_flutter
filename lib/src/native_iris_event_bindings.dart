@@ -19,19 +19,19 @@ class NativeIrisEventBinding {
           lookup)
       : _lookup = lookup;
 
-  int InitDartApiDL(
+  int Initialize(
     ffi.Pointer<ffi.Void> data,
   ) {
-    return _InitDartApiDL(
+    return _Initialize(
       data,
     );
   }
 
-  late final _InitDartApiDLPtr =
+  late final _InitializePtr =
       _lookup<ffi.NativeFunction<ffi.IntPtr Function(ffi.Pointer<ffi.Void>)>>(
-          'InitDartApiDL');
-  late final _InitDartApiDL =
-      _InitDartApiDLPtr.asFunction<int Function(ffi.Pointer<ffi.Void>)>();
+          'Initialize');
+  late final _Initialize =
+      _InitializePtr.asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   void Dispose() {
     return _Dispose();
@@ -40,20 +40,6 @@ class NativeIrisEventBinding {
   late final _DisposePtr =
       _lookup<ffi.NativeFunction<ffi.Void Function()>>('Dispose');
   late final _Dispose = _DisposePtr.asFunction<void Function()>();
-
-  void SetDartSendPort(
-    int send_port,
-  ) {
-    return _SetDartSendPort(
-      send_port,
-    );
-  }
-
-  late final _SetDartSendPortPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'SetDartSendPort');
-  late final _SetDartSendPort =
-      _SetDartSendPortPtr.asFunction<void Function(int)>();
 
   void OnEvent(
     ffi.Pointer<EventParam> param,
@@ -69,6 +55,98 @@ class NativeIrisEventBinding {
   late final _OnEvent =
       _OnEventPtr.asFunction<void Function(ffi.Pointer<EventParam>)>();
 
+  void OnEventLegacy(
+    ffi.Pointer<ffi.Int8> event,
+    ffi.Pointer<ffi.Int8> data,
+    ffi.Pointer<ffi.Pointer<ffi.Void>> buffer,
+    ffi.Pointer<ffi.Uint32> length,
+    int buffer_count,
+  ) {
+    return _OnEventLegacy(
+      event,
+      data,
+      buffer,
+      length,
+      buffer_count,
+    );
+  }
+
+  late final _OnEventLegacyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Pointer<ffi.Void>>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Uint32)>>('OnEventLegacy');
+  late final _OnEventLegacy = _OnEventLegacyPtr.asFunction<
+      void Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Pointer<ffi.Void>>, ffi.Pointer<ffi.Uint32>, int)>();
+
+  void OnEventExLegacy(
+    ffi.Pointer<ffi.Int8> event,
+    ffi.Pointer<ffi.Int8> data,
+    ffi.Pointer<ffi.Int8> result,
+    ffi.Pointer<ffi.Pointer<ffi.Void>> buffer,
+    ffi.Pointer<ffi.Uint32> length,
+    int buffer_count,
+  ) {
+    return _OnEventExLegacy(
+      event,
+      data,
+      result,
+      buffer,
+      length,
+      buffer_count,
+    );
+  }
+
+  late final _OnEventExLegacyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Pointer<ffi.Void>>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Uint32)>>('OnEventExLegacy');
+  late final _OnEventExLegacy = _OnEventExLegacyPtr.asFunction<
+      void Function(
+          ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Pointer<ffi.Void>>,
+          ffi.Pointer<ffi.Uint32>,
+          int)>();
+
+  void RegisterDartPort(
+    int send_port,
+  ) {
+    return _RegisterDartPort(
+      send_port,
+    );
+  }
+
+  late final _RegisterDartPortPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'RegisterDartPort');
+  late final _RegisterDartPort =
+      _RegisterDartPortPtr.asFunction<void Function(int)>();
+
+  void UnregisterDartPort(
+    int send_port,
+  ) {
+    return _UnregisterDartPort(
+      send_port,
+    );
+  }
+
+  late final _UnregisterDartPortPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'UnregisterDartPort');
+  late final _UnregisterDartPort =
+      _UnregisterDartPortPtr.asFunction<void Function(int)>();
+
   late final addresses = _SymbolAddresses(this);
 }
 
@@ -77,6 +155,23 @@ class _SymbolAddresses {
   _SymbolAddresses(this._library);
   ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<EventParam>)>>
       get OnEvent => _library._OnEventPtr;
+  ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Pointer<ffi.Void>>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Uint32)>> get OnEventLegacy => _library._OnEventLegacyPtr;
+  ffi.Pointer<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Pointer<ffi.Void>>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Uint32)>> get OnEventExLegacy => _library._OnEventExLegacyPtr;
 }
 
 class EventParam extends ffi.Struct {

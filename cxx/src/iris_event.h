@@ -21,20 +21,30 @@ extern "C"
         const char *data;
         unsigned int data_size;
         char *result;
-        void **buffer;
+        const void **buffer;
         unsigned int *length;
         unsigned int buffer_count;
     } EventParam;
 
     // Initialize `dart_api_dl.h`
-    EXPORT intptr_t
-    InitDartApiDL(void *data);
+    EXPORT intptr_t Initialize(void *data);
 
     EXPORT void Dispose();
 
-    EXPORT void SetDartSendPort(Dart_Port send_port);
-
     EXPORT void OnEvent(EventParam *param);
+
+    EXPORT void OnEventLegacy(const char *event, const char *data,
+                              const void **buffer, unsigned int *length,
+                              unsigned int buffer_count);
+
+    EXPORT void OnEventExLegacy(const char *event, const char *data,
+                                char result[kBasicResultLength],
+                                const void **buffer, unsigned int *length,
+                                unsigned int buffer_count);
+
+    EXPORT void RegisterDartPort(Dart_Port send_port);
+
+    EXPORT void UnregisterDartPort(Dart_Port send_port);
 
 #ifdef __cplusplus
 }

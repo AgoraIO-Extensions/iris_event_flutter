@@ -1,0 +1,1 @@
+artifact: https://github.com/AgoraIO-Extensions/iris_event_flutter/releases/tag/iris_event_1.4.2_20221104
